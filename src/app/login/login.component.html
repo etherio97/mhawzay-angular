@@ -1,0 +1,80 @@
+<div
+  class="
+    min-h-screen
+    bg-gray-50
+    flex
+    justify-center
+    items-center
+    overflow-hidden
+  "
+>
+  <div class="p-4 pb-20 flex flex-col justify-center items-center">
+    <img
+      src="assets/mhawpay-en-text.png"
+      class="object-cover h-12 mt-4 mb-6"
+      alt="logo"
+    />
+
+    <form [formGroup]="inputs" (ngSubmit)="signIn()">
+      <mat-form-field class="w-full">
+        <mat-label>Email Address</mat-label>
+        <input
+          type="email"
+          name="email"
+          matInput
+          formControlName="email"
+          autocomplete="email"
+          autocapitalize="off"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          matInput
+          formControlName="password"
+        />
+      </mat-form-field>
+
+      <div
+        *ngIf="error"
+        class="mt-2 rounded bg-red-400 text-white text-sm px-4 py-2"
+      >
+        {{ error }}
+      </div>
+
+      <div class="py-2"></div>
+
+      <button mat-raised-button color="primary" class="w-full">Log In</button>
+    </form>
+
+    <div class="flex items-center w-full space-x-4 my-6">
+      <div class="w-full border-b border-gray-300"></div>
+      <div>or</div>
+      <div class="w-full border-b border-gray-300"></div>
+    </div>
+
+    <div class="my-2 w-full">
+      <button
+        mat-flat-button
+        class="w-full bg-red-500 text-white"
+        (click)="signInWithGoogle()"
+      >
+        Sign In with Google
+      </button>
+    </div>
+
+    <div class="my-2 w-full">
+      <button
+        mat-flat-button
+        class="w-full bg-blue-500 text-white"
+        (click)="signInWithFacebook()"
+      >
+        Sign In with Facebook
+      </button>
+    </div>
+  </div>
+</div>

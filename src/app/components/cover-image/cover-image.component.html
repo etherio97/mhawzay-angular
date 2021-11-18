@@ -1,0 +1,12 @@
+<div
+  #cover
+  class="bg-gray-200 h-52 flex justify-center items-center cursor-pointer"
+  (click)="file.click()"
+></div>
+<input
+  type="file"
+  hidden
+  #file
+  accept="image/*"
+  (change)="uploadImage(cover, $event)"
+/>

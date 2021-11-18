@@ -1,0 +1,23 @@
+<div class="max-w-md mx-auto">
+  <app-cover-image></app-cover-image>
+  <app-profile-avatar class="relative left-8 -top-16">
+    {{ storeName }}
+  </app-profile-avatar>
+  <div class="mx-4 relative -top-16">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Store Name</mat-label>
+      <input type="text" matInput [(ngModel)]="storeName" maxlength="32" />
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select>
+        <mat-option [value]="category" *ngFor="let category of categories">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="my-8">
+      <button mat-flat-button color="primary" class="w-full">Save</button>
+    </div>
+  </div>
+</div>
