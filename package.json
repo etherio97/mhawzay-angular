@@ -24,6 +24,7 @@
     "axios": "^0.24.0",
     "firebase": "^9.4.1",
     "firebase-admin": "^10.0.0",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -35,6 +36,7 @@
     "@tailwindcss/forms": "0.3.4",
     "@types/firebase": "^3.2.1",
     "@types/jasmine": "~3.8.0",
+    "@types/moment": "^2.13.0",
     "@types/node": "^12.11.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",

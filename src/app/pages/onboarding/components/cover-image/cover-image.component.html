@@ -1,0 +1,17 @@
+<div
+  #cover
+  class="bg-gray-200 h-32 cursor-pointer flex flex-col justify-center items-center space-y-4 text-gray-400/80"
+  (click)="file.click()"
+>
+  <mat-icon class="text-3xl" *ngIf="!loaded">image</mat-icon>
+  <div *ngIf="!loaded" class="text-xs">
+    Choose your cover photo
+  </div>
+</div>
+<input
+  type="file"
+  hidden
+  #file
+  accept="image/*"
+  (change)="uploadImage(cover, $event)"
+/>

@@ -1,0 +1,36 @@
+<div class="mx-5 my-8">
+  <div class="text-xl font-bold">
+    Your Shops
+  </div>
+
+  <div
+    class="overflow-hidden rounded-lg bg-white border border-gray-200 shadow mt-4"
+    *ngFor="let shop of shops"
+  >
+    <div
+      class="h-32 w-full"
+      [ngStyle]="{
+          'background-image':'url('+shop.coverImage+')',
+          'background-position':'center center',
+          'background-size': 'cover'
+        }"
+    ></div>
+    <div class="flex space-x-2 items-center">
+      <div
+        class="my-3 ml-2 border-2 bg-gray-200 border-gray-400 w-16 h-16 rounded-full flex-none"
+        [ngStyle]="{
+            'background-image':'url('+shop.coverImage+')',
+            'background-position':'center center',
+            'background-size': 'cover'
+          }"
+      ></div>
+      <div class="flex-auto ml-5 flex flex-col space-y-1">
+        <p class="font-bold text-gray-700">{{shop.name}}</p>
+        <p class="text-gray-500 text-sm">{{shop.category}}</p>
+      </div>
+      <button mat-icon-button class="rounded-full flex-none mx-2">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

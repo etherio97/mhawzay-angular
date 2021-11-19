@@ -1,23 +1,45 @@
-<div class="max-w-md mx-auto">
-  <app-cover-image></app-cover-image>
-  <app-profile-avatar class="relative left-8 -top-16">
-    {{ storeName }}
-  </app-profile-avatar>
-  <div class="mx-4 relative -top-16">
+<div class="m-4">
+  <h2 class="text-xl font-semibold tracking-wider mb-4">
+    Create your new shop
+  </h2>
+
+  <form (ngSubmit)="create()" [formGroup]="formGroup">
+    <!-- Name -->
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Store Name</mat-label>
-      <input type="text" matInput [(ngModel)]="storeName" maxlength="32" />
+      <input
+        type="text"
+        matInput
+        autocomplete="off"
+        formControlName="name"
+        maxlength="32"
+      />
     </mat-form-field>
+
+    <!-- Category -->
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Category</mat-label>
-      <mat-select>
+      <mat-select formControlName="category">
         <mat-option [value]="category" *ngFor="let category of categories">
           {{ category }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="my-8">
-      <button mat-flat-button color="primary" class="w-full">Save</button>
+
+    <!-- Image -->
+    <div class="overflow-hidden bg-white border rounded-2xl shadow">
+      <app-cover-image
+        (change)="upload($event, 'coverImage')"
+      ></app-cover-image>
+      <app-profile-avatar
+        (change)="upload($event, 'profileImage')"
+      ></app-profile-avatar>
     </div>
-  </div>
+
+    <div class="my-8">
+      <button mat-flat-button color="primary" class="w-full" type="submit">
+        Create
+      </button>
+    </div>
+  </form>
 </div>

@@ -1,0 +1,28 @@
+<div class="flex items-center">
+  <div
+    class="bg-white cursor-pointer rounded-full border-2 border-gray-300 overflow-hidden h-14 w-14 mx-4 my-2"
+    (click)="file.click()"
+  >
+    <div
+      #cover
+      class="w-full h-full bg-gray-200 flex justify-center items-center text-center"
+    >
+      <mat-icon
+        class="text-gray-400/80 text-xl -translate-y-0.5"
+        *ngIf="!loaded"
+      >
+        image
+      </mat-icon>
+    </div>
+  </div>
+  <span class="text-xs text-gray-400/80" *ngIf="!loaded">
+    Upload your logo
+  </span>
+</div>
+<input
+  type="file"
+  hidden
+  #file
+  accept="image/*"
+  (change)="uploadImage(cover, $event)"
+/>
