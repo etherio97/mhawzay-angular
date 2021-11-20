@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import {
   getAuth,
   User,
@@ -6,24 +7,30 @@ import {
   onAuthStateChanged,
   signOut,
   UserCredential,
-  signInWithPopup,
+  signInWithRedirect,
   FacebookAuthProvider,
   GoogleAuthProvider,
-} from 'firebase/auth';
+  Unsubscribe,
+} from "firebase/auth";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
+  private unsubscribe?: Unsubscribe;
   private user: User | null = null;
+  private user$ = new BehaviorSubject<User | null>(null);
 
-  waitUntilAuth(): Promise<User | null> {
-    return new Promise((resolve: (user: User | null) => void) =>
-      onAuthStateChanged(getAuth(), (user) => {
+  waitUntilAuth(): Promise<Unsubscribe> {
+    return new Promise((resolve: (user: Unsubscribe) => void) => {
+      if (this.unsubscribe) return resolve(this.unsubscribe);
+      let unsubscribe = onAuthStateChanged(getAuth(), (user) => {
         this.user = user;
-        resolve(user);
-      })
-    );
+        this.user$.next(this.user);
+        this.unsubscribe = unsubscribe;
+        resolve(this.unsubscribe);
+      });
+    });
   }
 
   getCurrentUser(): User | null {
@@ -39,12 +46,12 @@ export class AuthService {
 
   signInWithFacebook() {
     let provider = new FacebookAuthProvider();
-    return signInWithPopup(getAuth(), provider);
+    return signInWithRedirect(getAuth(), provider);
   }
 
   signInWithGoogle() {
     let provider = new GoogleAuthProvider();
-    return signInWithPopup(getAuth(), provider);
+    return signInWithRedirect(getAuth(), provider);
   }
 
   signOut(): Promise<void> {

@@ -31,6 +31,8 @@ export class WelcomeComponent implements OnInit {
 
   formGroup!: FormGroup;
 
+  asyncTasks: boolean[] = [];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -56,16 +58,26 @@ export class WelcomeComponent implements OnInit {
     });
   }
 
-  upload(file: File, type: string) {
-    this.storage
-      .upload(file, `public/${moment().format("YYYY/MM")}`)
-      .then((url) => {
-        this.formGroup.get(type)?.setValue(url);
-      });
+  uploadCover(file: File) {
+    let filename = `public/${moment().format("YYYY/MM")}`;
+    this.asyncTasks.push(true);
+    this.storage.upload(file, filename).then((url) => {
+      this.asyncTasks.pop();
+      this.formGroup.get("coverImage")?.setValue(url);
+    });
+  }
+
+  uploadProfile(file: File) {
+    let filename = `public/${moment().format("YYYY/MM")}`;
+    this.asyncTasks.push(true);
+    this.storage.upload(file, filename).then((url) => {
+      this.asyncTasks.pop();
+      this.formGroup.get("profileImage")?.setValue(url);
+    });
   }
 
   create() {
-    if (!this.formGroup.valid) {
+    if (!this.formGroup.valid || this.asyncTasks.length) {
       return;
     }
     this.shop

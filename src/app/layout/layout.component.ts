@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { PreloaderService } from "../services/preloader.service";
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
+  selector: "app-layout",
+  templateUrl: "./layout.component.html",
 })
 export class LayoutComponent implements OnInit {
-
-  constructor() { }
+  constructor(private preloader: PreloaderService) {}
 
   ngOnInit(): void {
+    this.preloader.hide();
   }
-
 }

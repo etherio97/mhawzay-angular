@@ -28,12 +28,8 @@
 
     <!-- Image -->
     <div class="overflow-hidden bg-white border rounded-2xl shadow">
-      <app-cover-image
-        (change)="upload($event, 'coverImage')"
-      ></app-cover-image>
-      <app-profile-avatar
-        (change)="upload($event, 'profileImage')"
-      ></app-profile-avatar>
+      <app-cover-image (change)="uploadCover($event)"></app-cover-image>
+      <app-profile-avatar (change)="uploadProfile($event)"></app-profile-avatar>
     </div>
 
     <div class="my-8">
