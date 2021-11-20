@@ -20,14 +20,15 @@ export class ShopService {
     return push(this.$ref, data);
   }
 
-  list(uid: string) {
-    return get(
-      query(this.$ref, orderByChild("uid"), equalTo(uid))
-    ).then((snap) =>
-      Object.entries(snap.val() || {}).map(([_id, value]: any) => ({
-        _id,
-        ...value,
-      }))
+  list<Type>(uid: string): Promise<Type[]> {
+    return get(query(this.$ref, orderByChild("uid"), equalTo(uid))).then(
+      (snap) =>
+        snap.exists()
+          ? Object.entries(snap.val()).map(([_id, value]: any) => ({
+              _id,
+              ...value,
+            }))
+          : []
     );
   }
 }

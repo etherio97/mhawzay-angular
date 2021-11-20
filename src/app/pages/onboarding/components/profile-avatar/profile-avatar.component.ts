@@ -11,16 +11,12 @@ export class ProfileAvatarComponent {
 
   uploadImage(el: HTMLDivElement, event: any) {
     let files = event.target.files;
-    let file = files[0];
-    let reader = new FileReader();
-    if (!file) return;
-    this.change.emit(file);
-    reader.readAsDataURL(file);
-    reader.onload = (e: any) => {
-      this.loaded = true;
-      el.style.background = "url(" + e.target.result + ") no-repeat";
-      el.style.backgroundSize = "cover";
-      el.style.backgroundPosition = "center center";
-    };
+    if (!files.length) return;
+    let output = URL.createObjectURL(files[0]);
+    el.style.background = "url(" + output + ") no-repeat ";
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center center";
+    this.loaded = true;
+    this.change.emit(files[0]);
   }
 }

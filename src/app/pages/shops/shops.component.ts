@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { ShopService } from "src/app/services/shop.service";
 
@@ -11,13 +12,18 @@ export class ShopsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     const uid = this.authService.getCurrentUser()?.uid || "";
-    this.shopService.list(uid).then((shops) => {
+
+    this.shopService.list<any[]>(uid).then((shops) => {
       this.shops = shops;
+      if (!shops.length) {
+        this.router.navigate(["/onboarding/welcome"]);
+      }
     });
   }
 }

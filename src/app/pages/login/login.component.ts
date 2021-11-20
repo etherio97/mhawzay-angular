@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   error = "";
   inputs!: FormGroup;
 
+  fallbackOnSuccess = "/shops";
+
   constructor(
     private preloader: PreloaderService,
     private authService: AuthService,
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.inputs.value.email,
         this.inputs.value.password
       )
-      .then(() => this.router.navigate(["/account"]))
+      .then(() => this.router.navigate([this.fallbackOnSuccess]))
       .catch(this.handleError.bind(this));
   }
 
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
     this.preloader.show();
     this.authService
       .signInWithGoogle()
-      .then(() => this.router.navigate(["/account"]))
+      .then(() => this.router.navigate([this.fallbackOnSuccess]))
       .then(() => this.preloader.hide())
       .catch(this.handleError.bind(this));
   }
@@ -61,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.preloader.show();
     this.authService
       .signInWithFacebook()
-      .then(() => this.router.navigate(["/account"]))
+      .then(() => this.router.navigate([this.fallbackOnSuccess]))
       .then(() => this.preloader.hide())
       .catch(this.handleError.bind(this));
   }
