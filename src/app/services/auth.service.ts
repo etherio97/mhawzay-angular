@@ -19,18 +19,26 @@ import {
 export class AuthService {
   private unsubscribe?: Unsubscribe;
   private user: User | null = null;
+  private token: string | null = null;
   private user$ = new BehaviorSubject<User | null>(null);
 
   waitUntilAuth(): Promise<Unsubscribe> {
     return new Promise((resolve: (user: Unsubscribe) => void) => {
       if (this.unsubscribe) return resolve(this.unsubscribe);
-      let unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+      let unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
         this.user = user;
         this.user$.next(this.user);
         this.unsubscribe = unsubscribe;
+        if (user) {
+          this.token = await user.getIdToken();
+        }
         resolve(this.unsubscribe);
       });
     });
+  }
+
+  getToken() {
+    return this.token;
   }
 
   getCurrentUser(): User | null {

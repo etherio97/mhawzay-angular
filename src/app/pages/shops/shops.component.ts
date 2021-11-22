@@ -1,29 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
-import { ShopService } from "src/app/services/shop.service";
+import { ShopsService } from "./shops.service";
 
 @Component({
   selector: "app-shops",
   templateUrl: "./shops.component.html",
 })
 export class ShopsComponent implements OnInit {
+  loading = true;
   shops: any[] = [];
 
-  constructor(
-    private authService: AuthService,
-    private shopService: ShopService,
-    private router: Router
-  ) {}
+  constructor(private shopsService: ShopsService) {}
 
-  ngOnInit(): void {
-    const uid = this.authService.getCurrentUser()?.uid || "";
-
-    this.shopService.list<any[]>(uid).then((shops) => {
+  async ngOnInit() {
+    this.shopsService.list().subscribe((shops: any) => {
+      this.loading = false;
       this.shops = shops;
-      if (!shops.length) {
-        this.router.navigate(["/onboarding/welcome"]);
-      }
     });
   }
 }

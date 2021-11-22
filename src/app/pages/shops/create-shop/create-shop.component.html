@@ -1,7 +1,14 @@
 <div class="m-4">
-  <h2 class="text-xl font-semibold tracking-wider mb-4">
-    Create your new shop
-  </h2>
+  <div class="flex justify-between items-center overflow-hidden h-16">
+    <h2 class="text-xl font-semibold tracking-wider mb-4">
+      Create your new shop
+    </h2>
+    <mat-progress-spinner
+      *ngIf="loading"
+      mode="indeterminate"
+      diameter="32"
+    ></mat-progress-spinner>
+  </div>
 
   <form (ngSubmit)="create()" [formGroup]="formGroup">
     <!-- Name -->
@@ -33,7 +40,13 @@
     </div>
 
     <div class="my-8">
-      <button mat-flat-button color="primary" class="w-full" type="submit">
+      <button
+        mat-flat-button
+        color="primary"
+        class="w-full"
+        type="submit"
+        [disabled]="loading"
+      >
         Create
       </button>
     </div>

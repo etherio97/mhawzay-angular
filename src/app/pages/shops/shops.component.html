@@ -3,6 +3,13 @@
     Your Shops
   </div>
 
+  <div *ngIf="!shops.length && !loading" class="pt-5">
+    Create your first shop
+    <button mat-flat-button routerLink="/onboarding/welcome" color="primary">
+      <mat-icon>add</mat-icon> New
+    </button>
+  </div>
+
   <div
     class="overflow-hidden rounded-lg bg-white border border-gray-200 shadow mt-4"
     *ngFor="let shop of shops"
@@ -10,7 +17,7 @@
     <div
       class="h-32 w-full"
       [ngStyle]="{
-          'background-image':'url('+shop.coverImage+')',
+          'background-image':'url('+shop.cover_url+')',
           'background-position':'center center',
           'background-size': 'cover'
         }"
@@ -19,7 +26,7 @@
       <div
         class="my-3 ml-2 border-2 bg-gray-200 border-gray-400 w-16 h-16 rounded-full flex-none"
         [ngStyle]="{
-            'background-image':'url('+shop.profileImage+')',
+            'background-image':'url('+shop.avatar_url+')',
             'background-position':'center center',
             'background-size': 'cover'
           }"

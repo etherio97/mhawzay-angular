@@ -7,10 +7,17 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import initializeFirebaseApp from "./firebase.init";
 import { AuthService } from "./services/auth.service";
+import { AuthInterceptor } from "./core/auth.interceptor";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
   providers: [
     {
       provide: APP_INITIALIZER,
@@ -18,8 +25,13 @@ import { AuthService } from "./services/auth.service";
       multi: true,
       deps: [AuthService],
     },
+    {
+      useClass: AuthInterceptor,
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [HttpClientModule],
 })
 export class AppModule {}

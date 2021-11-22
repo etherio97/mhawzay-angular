@@ -1,0 +1,47 @@
+<div class="mx-5 mt-4 mb-8" *ngIf="shop">
+  <div
+    class="rounded-md bg-gray-100 h-32 flex flex-col justify-center items-center space-y-4 text-gray-400/80"
+    [ngStyle]="{
+        backgroundImage: 'url('+shop.cover_url+')',
+        backgroundSize :'cover',
+        backgroundPosition: 'center center'
+    }"
+  ></div>
+  <div class="flex space-x-1 items-center">
+    <div
+      class="bg-gray-50 rounded-full border-2 border-gray-300 overflow-hidden h-14 w-14 mx-2 my-2"
+      [ngStyle]="{
+        backgroundImage: 'url('+shop.avatar_url+')',
+        backgroundSize :'cover',
+        backgroundPosition: 'center center'
+      }"
+    ></div>
+    <div class="">
+      <div class="font-bold text-gray-800 text-md">
+        {{shop.name}}
+      </div>
+      <div class="text-sm text-gray-500">
+        {{shop.category}}
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Products">
+      <ng-template matTabContent>
+        <app-product-list [shopId]="shop.id"></app-product-list>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Orders">
+      <div class="my-2 font-semibold">
+        Comin' soon!
+      </div>
+      <code>We're woring on it...</code>
+    </mat-tab>
+    <mat-tab label="Settings">
+      <ng-template matTabContent>
+        <app-shop-settings></app-shop-settings>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

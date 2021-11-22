@@ -1,16 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import * as moment from "moment";
 import { AuthService } from "src/app/services/auth.service";
-import { ShopService } from "src/app/services/shop.service";
 import { StorageService } from "src/app/services/storage.service";
+import { ShopsService } from "../shops.service";
 
 @Component({
-  selector: "app-welcome",
-  templateUrl: "./welcome.component.html",
+  selector: "app-create-shop",
+  templateUrl: "./create-shop.component.html",
 })
-export class WelcomeComponent implements OnInit {
+export class CreateShopComponent implements OnInit {
+  loading = false;
   categories = [
     "Automotive",
     "Baby & Toddler",
@@ -28,17 +28,17 @@ export class WelcomeComponent implements OnInit {
     "Sports & Outdoors",
     "Travel",
   ];
-
   formGroup!: FormGroup;
-
-  asyncTasks: boolean[] = [];
+  files: { [s: string]: File | null } = {
+    cover: null,
+    avatar: null,
+  };
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private auth: AuthService,
     private storage: StorageService,
-    private shop: ShopService
+    private shops: ShopsService
   ) {}
 
   ngOnInit(): void {
@@ -52,36 +52,38 @@ export class WelcomeComponent implements OnInit {
         ],
       ],
       category: ["", [Validators.required]],
-      uid: [this.auth.getCurrentUser()?.uid, [Validators.required]],
-      coverImage: [""],
-      profileImage: [""],
+      cover_url: [""],
+      avatar_url: [""],
     });
   }
 
-  uploadCover(file: File) {
-    let filename = `public/${moment().format("YYYY/MM")}`;
-    this.asyncTasks.push(true);
-    this.storage.upload(file, filename).then((url) => {
-      this.asyncTasks.pop();
-      this.formGroup.get("coverImage")?.setValue(url);
-    });
+  uploadCover(file: File | Event) {
+    if (file instanceof Event) return;
+    this.files.cover = file;
   }
 
-  uploadProfile(file: File) {
-    let filename = `public/${moment().format("YYYY/MM")}`;
-    this.asyncTasks.push(true);
-    this.storage.upload(file, filename).then((url) => {
-      this.asyncTasks.pop();
-      this.formGroup.get("profileImage")?.setValue(url);
-    });
+  uploadProfile(file: File | Event) {
+    if (file instanceof Event) return;
+    this.files.avatar = file;
   }
 
-  create() {
-    if (!this.formGroup.valid || this.asyncTasks.length) {
+  async create() {
+    if (!this.formGroup.valid) {
       return;
     }
-    this.shop
+    this.loading = true;
+    if (this.files.cover) {
+      await this.storage.upload(this.files.cover).then((url) => {
+        this.formGroup.get("cover_url")?.setValue(url);
+      });
+    }
+    if (this.files.avatar) {
+      await this.storage.upload(this.files.avatar).then((url) => {
+        this.formGroup.get("avatar_url")?.setValue(url);
+      });
+    }
+    this.shops
       .create(this.formGroup.value)
-      .then(() => this.router.navigate(["/shops"]));
+      .subscribe(() => this.router.navigate(["/shops"]));
   }
 }
