@@ -46,13 +46,15 @@ export class AddProductComponent implements OnInit {
   }
 
   async create() {
-    if (!this.formGroup.valid || this.loading) return;
+    let product = this.formGroup;
+    if (!product.valid || this.loading) return;
     this.loading = true;
     if (this.image) {
       let url = await this.storage.upload(this.image);
-      this.formGroup.get("image_url")?.setValue(url);
+      product.get("image_url")?.setValue(url);
     }
-    this.product.create(this.id, this.formGroup.value).subscribe(
+    product.value.price = parseInt(product.value.price);
+    this.product.create(this.id, product.value).subscribe(
       () => this.router.navigate(["/shops", this.id]),
       (e) => alert(e.error?.error)
     );

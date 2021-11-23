@@ -15,7 +15,9 @@ export class ProductService {
   }
 
   create(shop_id: string, data: any) {
-    return this.http.post(this.requestUrl, data, { params: { shop_id } });
+    return this.http.post(this.requestUrl, data, {
+      params: { shop_id },
+    });
   }
 
   list(shop_id: string) {

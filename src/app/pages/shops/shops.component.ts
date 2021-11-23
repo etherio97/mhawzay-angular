@@ -23,8 +23,15 @@ export class ShopsComponent implements OnInit {
   reloadData() {
     this.shopsService.list().subscribe((shops: any) => {
       this.loading = false;
-      this.shops = shops;
-      this.shopsService.shops = shops;
+      this.shopsService.shops = this.shops = shops.map((shop: any) => {
+        if (!shop.avatar_url) {
+          shop.avatar_url = "assets/img/shop.png";
+        }
+        if (!shop.cover_url) {
+          shop.cover_url = "assets/img/cover.png";
+        }
+        return shop;
+      });
     });
   }
 

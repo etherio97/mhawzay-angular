@@ -30,6 +30,12 @@ export class ShopDetailComponent implements OnInit {
   reloadData() {
     this.shops.get(this.id).subscribe((shop) => {
       this.shop = shop;
+      if (!this.shop.avatar_url) {
+        this.shop.avatar_url = "assets/img/shop.png";
+      }
+      if (!this.shop.cover_url) {
+        this.shop.cover_url = "assets/img/cover.png";
+      }
     });
   }
 }

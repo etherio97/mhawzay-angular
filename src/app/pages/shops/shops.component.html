@@ -5,7 +5,7 @@
 
   <div *ngIf="!shops.length && !loading" class="pt-5">
     Create your first shop
-    <button mat-flat-button routerLink="/onboarding/welcome" color="primary">
+    <button mat-flat-button routerLink="new" color="primary">
       <mat-icon>add</mat-icon> New
     </button>
   </div>
@@ -26,7 +26,7 @@
       <div
         class="my-3 ml-2 border-2 bg-gray-200 border-gray-400 w-16 h-16 rounded-full flex-none"
         [ngStyle]="{
-            'background-image':'url('+shop.avatar_url+')',
+            'background-image':'url('+(shop.avatar_url)+')',
             'background-position':'center center',
             'background-size': 'cover'
           }"

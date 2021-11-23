@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ShopsService } from "../../shops.service";
 
 @Component({
@@ -6,6 +6,8 @@ import { ShopsService } from "../../shops.service";
   templateUrl: "./shop-settings.component.html",
 })
 export class ShopSettingsComponent implements OnInit {
+  @Input() shop: any;
+
   constructor(private shops: ShopsService) {}
 
   ngOnInit(): void {
