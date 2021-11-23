@@ -35,7 +35,11 @@
         <p class="font-bold text-gray-700">{{shop.name}}</p>
         <p class="text-gray-500 text-sm">{{shop.category}}</p>
       </div>
-      <button mat-icon-button class="rounded-full flex-none mx-2">
+      <button
+        mat-icon-button
+        class="rounded-full flex-none mx-2"
+        (click)="viewDetail(shop)"
+      >
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>

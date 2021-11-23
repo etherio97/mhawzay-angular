@@ -6,7 +6,7 @@ import { ProductService } from "../../product.service";
   templateUrl: "./product-list.component.html",
 })
 export class ProductListComponent implements OnInit {
-  @Input() shopId!: string;
+  @Input() shop_id!: string;
   loading = false;
   products: any[] = [];
 
@@ -18,9 +18,9 @@ export class ProductListComponent implements OnInit {
 
   reloadData() {
     this.loading = true;
-    this.product.list(this.shopId).subscribe((products: any) => {
+    this.product.list(this.shop_id).subscribe((products: any) => {
       this.loading = false;
-      this.products = products;
+      this.products = products.reverse();
     });
   }
 }

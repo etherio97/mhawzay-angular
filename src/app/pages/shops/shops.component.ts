@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "src/app/services/auth.service";
 import { ShopsService } from "./shops.service";
 
 @Component({
@@ -11,12 +10,25 @@ export class ShopsComponent implements OnInit {
   loading = true;
   shops: any[] = [];
 
-  constructor(private shopsService: ShopsService) {}
+  constructor(private shopsService: ShopsService, private router: Router) {}
 
   async ngOnInit() {
+    if (this.shopsService.shops.length) {
+      this.shops = this.shopsService.shops;
+    } else {
+      this.reloadData();
+    }
+  }
+
+  reloadData() {
     this.shopsService.list().subscribe((shops: any) => {
       this.loading = false;
       this.shops = shops;
+      this.shopsService.shops = shops;
     });
+  }
+
+  viewDetail(data: any) {
+    this.router.navigate(["/shops", data.shop_id]);
   }
 }

@@ -18,7 +18,7 @@
             {{product.price.toLocaleString()}} Kyats
           </div>
         </mat-card-title>
-        <img mat-card-md-image [src]="product.image_url" />
+        <img type="image/jpeg" mat-card-md-image [src]="product.image_url" />
       </mat-card-title-group>
     </mat-card>
     <mat-divider *ngIf="i+1!==products.length" class="opacity-60"></mat-divider>

@@ -19,6 +19,9 @@ import { ProductListComponent } from "./shop-detail/product-list/product-list.co
 import { ShopSettingsComponent } from "./shop-detail/shop-settings/shop-settings.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { AddProductComponent } from "./add-product/add-product.component";
+import { RequiredAsteriskComponent } from "src/app/components/required-asterisk/required-asterisk.component";
 
 const routes: Routes = [
   {
@@ -28,6 +31,10 @@ const routes: Routes = [
   {
     path: "new",
     component: CreateShopComponent,
+  },
+  {
+    path: ":id/new",
+    component: AddProductComponent,
   },
   {
     path: ":id",
@@ -44,6 +51,8 @@ const routes: Routes = [
     ShopDetailComponent,
     ProductListComponent,
     ShopSettingsComponent,
+    AddProductComponent,
+    RequiredAsteriskComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +69,7 @@ const routes: Routes = [
     MatTabsModule,
     MatCardModule,
     MatDividerModule,
+    MatAutocompleteModule,
   ],
   exports: [RouterModule],
 })

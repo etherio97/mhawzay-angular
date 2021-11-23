@@ -1,12 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, of } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ShopsService {
-  private readonly requestUrl = "https://etherio-server.herokuapp.com/shops";
-
+  private readonly requestUrl =
+    "https://etherio-server.herokuapp.com/manage/shops";
+  public shops: any[] = [];
   constructor(private http: HttpClient) {}
 
   get(id: string) {

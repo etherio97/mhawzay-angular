@@ -7,21 +7,30 @@
         backgroundPosition: 'center center'
     }"
   ></div>
-  <div class="flex space-x-1 items-center">
-    <div
-      class="bg-gray-50 rounded-full border-2 border-gray-300 overflow-hidden h-14 w-14 mx-2 my-2"
-      [ngStyle]="{
+  <div>
+    <div class="flex space-x-1 items-center">
+      <div
+        class="flex-none bg-gray-50 rounded-full border-2 border-gray-300 overflow-hidden h-14 w-14 mx-2 my-2"
+        [ngStyle]="{
         backgroundImage: 'url('+shop.avatar_url+')',
         backgroundSize :'cover',
         backgroundPosition: 'center center'
       }"
-    ></div>
-    <div class="">
-      <div class="font-bold text-gray-800 text-md">
-        {{shop.name}}
-      </div>
-      <div class="text-sm text-gray-500">
-        {{shop.category}}
+      ></div>
+      <div class="flex justify-between items-center w-full">
+        <div class="flex-none">
+          <div class="font-bold text-gray-800 text-md">
+            {{shop.name}}
+          </div>
+          <div class="text-sm text-gray-500">
+            {{shop.category}}
+          </div>
+        </div>
+        <div>
+          <button mat-flat-button routerLink="new">
+            <mat-icon>add</mat-icon> New
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -29,7 +38,7 @@
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Products">
       <ng-template matTabContent>
-        <app-product-list [shopId]="shop.id"></app-product-list>
+        <app-product-list [shop_id]="shop.shop_id"></app-product-list>
       </ng-template>
     </mat-tab>
     <mat-tab label="Orders">

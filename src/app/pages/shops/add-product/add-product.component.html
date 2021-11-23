@@ -1,0 +1,99 @@
+<div class="m-4 pb-4">
+  <div class="flex justify-between items-center overflow-hidden h-16">
+    <h2 class="text-xl font-semibold tracking-wider mb-4">
+      Add product
+    </h2>
+    <mat-progress-spinner
+      *ngIf="loading"
+      mode="indeterminate"
+      diameter="32"
+    ></mat-progress-spinner>
+  </div>
+
+  <form (ngSubmit)="create()" [formGroup]="formGroup">
+    <!-- Name -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>
+        Product Name <app-required-asterisk></app-required-asterisk>
+      </mat-label>
+      <input
+        matInput
+        type="text"
+        name="name"
+        formControlName="name"
+        maxlength="32"
+      />
+    </mat-form-field>
+
+    <!-- Price -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>
+        Price <app-required-asterisk></app-required-asterisk>
+      </mat-label>
+      <input
+        matInput
+        type="number"
+        inputmode="numeric"
+        name="price"
+        formControlName="price"
+      />
+    </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>
+        Category
+      </mat-label>
+      <input
+        matInput
+        type="text"
+        name="category"
+        formControlName="category"
+        maxlength="32"
+      />
+    </mat-form-field>
+
+    <!-- Code -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>
+        Code
+      </mat-label>
+      <input
+        matInput
+        type="text"
+        name="code"
+        formControlName="code"
+        maxlength="16"
+      />
+    </mat-form-field>
+
+    <!-- Image -->
+    <div class="overflow-hidden bg-white border rounded-2xl shadow mb-6">
+      <app-cover-image (change)="uploadImage($event)"></app-cover-image>
+    </div>
+
+    <!-- Status -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>
+        Status <app-required-asterisk></app-required-asterisk>
+      </mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="DRAFT">DRAFT</mat-option>
+        <mat-option value="ACTIVE">ACTIVE</mat-option>
+        <mat-option value="INACTIVE">INACTIVE</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="my-8">
+      <button
+        mat-flat-button
+        color="primary"
+        class="w-full"
+        type="submit"
+        [disabled]="loading"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</div>
