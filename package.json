@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@ngneat/tailwind": "^7.0.3",
-    "axios": "^0.24.0",
+    "axios": "^1.6.3",
     "firebase": "^9.4.1",
     "firebase-admin": "^10.0.0",
     "moment": "^2.29.1",
